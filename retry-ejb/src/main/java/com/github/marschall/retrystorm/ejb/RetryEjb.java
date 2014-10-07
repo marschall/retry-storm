@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ConcurrencyManagement;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timeout;
@@ -26,10 +27,13 @@ public class RetryEjb {
   private TimerService timerService;
   private TimerConfig timerConfig;
   
+  @EJB
+  private LocalExceptionEjb localExceptionEjb;
+  
   
   @PostConstruct
   public void initialize() {
-    this.timerConfig = new TimerConfig("RetryEjb", false);
+    this.timerConfig = new TimerConfig("retry storm", false);
     this.scheduleTimer();
   }
   
@@ -41,7 +45,7 @@ public class RetryEjb {
   public void onTimeout() {
     LOG.info("onTimeout");
     this.scheduleTimer();
-    throw new RuntimeException("retry");
+    this.localExceptionEjb.aMethod();
   }
 
 }
