@@ -1,9 +1,9 @@
 package com.github.marschall.retrystorm.ejb;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static javax.ejb.ConcurrencyManagementType.BEAN;
 
 import java.lang.invoke.MethodHandles;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +14,6 @@ import javax.ejb.Startup;
 import javax.ejb.Timeout;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 @Singleton
 @Startup
